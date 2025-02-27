@@ -27,6 +27,14 @@ switch ($requestUri) {
             header('Location: /mprojekt/public/products');
         }
         break;
+
+
+        case '/mprojekt/public/search':
+            $controller = new ProductController();
+            $controller->search();
+            break;
+
+        
         
     // Cart routes
     case '/mprojekt/public/cart':

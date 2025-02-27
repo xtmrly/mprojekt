@@ -15,4 +15,14 @@ class ProductController {
         }
         require __DIR__ . '/../views/products/show.php';
     }
+
+    public function search() {
+        $query = isset($_GET['q']) ? trim($_GET['q']) : '';
+        if ($query === '') {
+            $products = [];
+        } else {
+            $products = Product::search($query);
+        }
+        require __DIR__ . '/../views/products/search.php';
+    }
 }
