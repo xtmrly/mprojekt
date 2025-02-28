@@ -460,6 +460,168 @@ form button:hover {
 }
 
 
+
+
+/* Platebni formular */
+/* --- Podobné styly jako pro cart-container, aby to ladilo s košíkem --- */
+.cart-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Nadpis v cart-containeru */
+.cart-container header h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Samotný checkout formulář */
+.checkout-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+/* Jednotlivé sekce formuláře */
+.checkout-section {
+    margin-bottom: 20px;
+}
+
+.checkout-section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+/* Odkaz pro přihlášení */
+.login-prompt {
+    text-align: right;
+    margin-bottom: 1rem;
+}
+
+/* Skupiny polí */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.input-group input,
+.input-group select {
+    max-width: 90%;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Dvě pole vedle sebe (jméno/příjmení, město/PSČ) */
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.input-row .input-group {
+    flex: 1;
+}
+
+/* Checkbox inline s textem */
+.inline-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+/* Zvýšení velikosti checkboxu (volitelné) */
+.inline-checkbox input[type="checkbox"] {
+    transform: scale(1.2);
+    margin: 0;
+    cursor: pointer;
+}
+
+/* Skupina radiobuttonů pro výběr platby */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.radio-group label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Vizuální styl pro .cart-actions - tlačítka dole (jako v košíku) */
+.cart-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+/* Styly pro tlačítka (btn, btn-primary, btn-secondary) */
+.btn {
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.btn-secondary:hover {
+    background-color: #e4e4e4;
+}
+
+/* Povinné pole */
+.required {
+    color: red;
+}
+
+/* Zvýraznění focus */
+input:focus, select:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 5px rgba(0,123,255,0.5);
+}
+
+  
+
+
+
+
+
+
+
+
 /* Detail produktu */
 .product-detail {
     display: flex;

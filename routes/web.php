@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../app/controllers/CheckoutController.php'; // DŮLEŽITÉ
 require_once __DIR__ . '/../app/controllers/ProductController.php';
 require_once __DIR__ . '/../app/controllers/CartController.php';
 // Další kontrolery...
@@ -56,6 +57,25 @@ switch ($requestUri) {
         $controller = new CartController();
         $controller->remove();
         break;
+
+
+    // checkout
+    case '/mprojekt/public/checkout':
+        $controller = new CheckoutController();
+        $controller->index();
+        break;
+        
+    case '/mprojekt/public/checkout/process':
+        $controller = new CheckoutController();
+        $controller->process();
+        break;
+        
+    case '/mprojekt/public/checkout/success':
+        $controller = new CheckoutController();
+        $controller->success();
+        break;
+        
+
 
     // Ostatní routy...
 
