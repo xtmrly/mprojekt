@@ -59,11 +59,11 @@ class CheckoutController
                 // Začneme transakci pro jistotu, aby se buď uložilo vše, nebo nic
                 $pdo->beginTransaction();
 
-                $stmt = $pdo->prepare("INSERT INTO orders (user_id, total, shipping_address, payment_method, created_at) 
-                                       VALUES (:user_id, :total, :shipping_address, :payment_method, NOW())");
+                $stmt = $pdo->prepare("INSERT INTO orders (user_id, total_price, shipping_address, payment_method, created_at) 
+                                       VALUES (:user_id, :total_price, :shipping_address, :payment_method, NOW())");
                 $stmt->execute([
                     ':user_id'         => $userId,
-                    ':total'           => $totalPrice,
+                    ':total_price'     => $totalPrice, // Změněno z :total na :total_price
                     ':shipping_address'=> $shippingAddress,
                     ':payment_method'  => $paymentMethod
                 ]);

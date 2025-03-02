@@ -31,18 +31,28 @@ class Product {
         }
     }
 
-    // V souboru app/models/Product.php
-public static function search($query) {
-    global $pdo;
-    $query = "%" . $query . "%";
-    try {
-        $stmt = $pdo->prepare("SELECT * FROM products WHERE name LIKE ? OR description LIKE ?");
-        $stmt->execute([$query, $query]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        error_log("Chyba při vyhledávání produktů: " . $e->getMessage());
-        return [];
+    public static function search($query) {
+        global $pdo;
+        $query = "%" . $query . "%";
+        try {
+            $stmt = $pdo->prepare("SELECT * FROM products WHERE name LIKE ? OR description LIKE ?");
+            $stmt->execute([$query, $query]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Chyba při vyhledávání produktů: " . $e->getMessage());
+            return [];
+        }
     }
-}
 
+    public static function getProductsByCategory($category) {
+        global $pdo;
+        try {
+            $stmt = $pdo->prepare("SELECT * FROM products WHERE category = :category");
+            $stmt->execute([':category' => $category]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log('Error getting products by category: ' . $e->getMessage());
+            return [];
+        }
+    }
 }

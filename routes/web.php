@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../app/controllers/CheckoutController.php'; // DŮLEŽITÉ
 require_once __DIR__ . '/../app/controllers/ProductController.php';
 require_once __DIR__ . '/../app/controllers/CartController.php';
+require_once __DIR__ . '/../app/controllers/UserController.php';
 // Další kontrolery...
 
 // Get the request URI without query parameters
@@ -74,8 +75,22 @@ switch ($requestUri) {
         $controller = new CheckoutController();
         $controller->success();
         break;
-        
 
+    case '/mprojekt/public/user/profile':
+        $controller = new UserController();
+        $controller->profile();
+        break;
+        
+    case '/mprojekt/public/user/orders':
+        $controller = new UserController();
+        $controller->orders();
+        break;
+
+    // Orders routes
+    case '/mprojekt/public/orders/detail':
+        $controller = new UserController();
+        $controller->orderDetail();
+        break;
 
     // Ostatní routy...
 

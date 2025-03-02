@@ -3,7 +3,17 @@ require_once __DIR__ . '/../models/Product.php';
 
 class ProductController {
     public function index() {
-        $products = Product::getAllProducts();
+        // Kontrola, zda byl zadán parametr kategorie
+        $category = isset($_GET['category']) ? $_GET['category'] : null;
+        
+        if ($category) {
+            // Pokud je zadána kategorie, získáme produkty jen z této kategorie
+            $products = Product::getProductsByCategory($category);
+        } else {
+            // Pokud kategorie není zadána, získáme všechny produkty
+            $products = Product::getAllProducts();
+        }
+        
         require __DIR__ . '/../views/products/index.php';
     }
 
