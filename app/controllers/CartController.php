@@ -96,10 +96,21 @@ class CartController {
                     unset($_SESSION['cart'][$product_id]);
                 }
             }
-            $_SESSION['message'] = 'Košík byl aktualizován.';
+            
+            // Zkontroluj, jestli je to AJAX request (nemá hlavičku Accept: text/html)
+            $isAjax = !isset($_SERVER['HTTP_ACCEPT']) || strpos($_SERVER['HTTP_ACCEPT'], 'text/html') === false;
+            
+            if ($isAjax) {
+                // Pro AJAX požadavky vrať JSON odpověď
+                header('Content-Type: application/json');
+                echo json_encode(['success' => true]);
+                exit();
+            } else {
+                // Pro běžné požadavky přesměruj zpět na košík
+                $_SESSION['message'] = 'Košík byl aktualizován.';
+                header('Location: /mprojekt/public/cart');
+                exit();
+            }
         }
-        
-        header('Location: /mprojekt/public/cart');
-        exit();
     }
 }

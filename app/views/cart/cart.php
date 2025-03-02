@@ -94,5 +94,114 @@
             </form>
         <?php endif; ?>
     </section>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Najít všechny prvky pro množství
+        const quantityInputs = document.querySelectorAll('.quantity-input');
+        
+        // Přidat event listener pro každý input
+        quantityInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                // Získat ID produktu z názvu inputu - quantities[ID]
+                const productId = this.name.match(/quantities\[(\d+)\]/)[1];
+                
+                // Získat cenu za kus - najít odpovídající řádek v tabulce
+                const row = this.closest('tr');
+                const priceCell = row.querySelector('td:nth-child(2)');
+                const priceText = priceCell.textContent;
+                const price = parseInt(priceText.replace(/\s+/g, '').replace('Kč', ''));
+                
+                // Vypočítat novou cenu za položku
+                const quantity = parseInt(this.value);
+                const totalItemPrice = price * quantity;
+                
+                // Aktualizovat cenu položky v tabulce
+                const totalCell = row.querySelector('td:nth-child(4)');
+                totalCell.textContent = totalItemPrice.toLocaleString('cs-CZ') + ' Kč';
+                
+                // Přepočítat celkovou cenu košíku
+                recalculateCartTotal();
+                
+                // Aktualizovat počet položek v navigaci
+                updateCartBadge();
+                
+                // Odeslat AJAX request pro aktualizaci košíku na serveru
+                updateCartOnServer(productId, quantity);
+            });
+        });
+        
+        // Funkce pro přepočítání celkové ceny
+        function recalculateCartTotal() {
+            let total = 0;
+            
+            // Projít všechny položky a sečíst jejich ceny
+            document.querySelectorAll('tr').forEach(row => {
+                const totalCell = row.querySelector('td:nth-child(4)');
+                if (totalCell) {
+                    const totalText = totalCell.textContent;
+                    const itemTotal = parseInt(totalText.replace(/\s+/g, '').replace('Kč', ''));
+                    total += itemTotal;
+                }
+            });
+            
+            // Aktualizovat zobrazení mezisoučtu
+            const subtotalElement = document.querySelector('.summary-row:first-child strong');
+            if (subtotalElement) {
+                subtotalElement.textContent = total.toLocaleString('cs-CZ') + ' Kč';
+            }
+            
+            // Aktualizovat zobrazení celkové ceny
+            const totalPriceElement = document.querySelector('.summary-row:last-child strong');
+            if (totalPriceElement) {
+                totalPriceElement.textContent = total.toLocaleString('cs-CZ') + ' Kč';
+            }
+        }
+        
+        // Funkce pro aktualizaci počtu položek v košíku v navigaci
+        function updateCartBadge() {
+            let totalItems = 0;
+            
+            // Součet množství všech položek
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                totalItems += parseInt(input.value) || 0;
+            });
+            
+            // Aktualizovat číslo v navigaci
+            const cartCountElement = document.querySelector('.cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = totalItems;
+                
+                // Zobrazit nebo skrýt podle počtu
+                if (totalItems > 0) {
+                    cartCountElement.style.display = 'flex';
+                } else {
+                    cartCountElement.style.display = 'none';
+                }
+            }
+        }
+        
+        // Funkce pro AJAX aktualizaci košíku
+        function updateCartOnServer(productId, quantity) {
+            // Vytvořit FormData objekt pro odeslání dat
+            const formData = new FormData();
+            formData.append('quantities[' + productId + ']', quantity);
+            
+            // Odeslat AJAX požadavek
+            fetch('/mprojekt/public/cart/update', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.error('Chyba při aktualizaci košíku');
+                }
+            })
+            .catch(error => {
+                console.error('AJAX chyba:', error);
+            });
+        }
+    });
+    </script>
 </body>
 </html>
