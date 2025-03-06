@@ -3,6 +3,7 @@ require_once __DIR__ . '/../app/controllers/CheckoutController.php'; // DŮLEŽI
 require_once __DIR__ . '/../app/controllers/ProductController.php';
 require_once __DIR__ . '/../app/controllers/CartController.php';
 require_once __DIR__ . '/../app/controllers/UserController.php';
+require_once __DIR__ . '/../app/controllers/AdminController.php';
 // Další kontrolery...
 
 // Get the request URI without query parameters
@@ -91,6 +92,35 @@ switch ($requestUri) {
         $controller = new UserController();
         $controller->orderDetail();
         break;
+
+
+    // admin routes
+    case '/mprojekt/public/admin':
+        $controller = new AdminController();
+        $controller->index();
+        break;
+        
+    case '/mprojekt/public/admin/create':
+        $controller = new AdminController();
+        $controller->createProduct();
+        break;
+            
+    case '/mprojekt/public/admin/edit':
+        $controller = new AdminController();
+        $controller->edit();
+        break;
+    
+    case '/mprojekt/public/admin/update':
+        $controller = new AdminController();
+        $controller->update();
+        break;
+    
+    case '/mprojekt/public/admin/delete':
+        $controller = new AdminController();
+        $controller->delete();
+        break;
+        
+            
 
     // Ostatní routy...
 
