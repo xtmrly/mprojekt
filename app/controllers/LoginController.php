@@ -1,42 +1,37 @@
 <?php
-
-session_start(); // Spuštění session
+session_start();
 require_once __DIR__ . '/../../config/database.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Kontrola, zda jsou všechna pole vyplněná
     if (empty($email) || empty($password)) {
-        die('Vyplňte všechny požadované údaje.');
+        $_SESSION['message'] = 'Vyplňte všechny požadované údaje.';
+        header('Location: /mprojekt/public/auth/login');
+        exit();
     }
 
     try {
-        // Načtení uživatele z databáze podle e-mailu
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
         $stmt->execute([':email' => $email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Kontrola, zda uživatel existuje a heslo je správné
         if (!$user || !password_verify($password, $user['password'])) {
-            die('Neplatný e-mail nebo heslo.');
+            $_SESSION['message'] = 'Neplatný e-mail nebo heslo.';
+            header('Location: /mprojekt/public/auth/login');
+            exit();
         }
 
-        // Nastavení údajů do session
         $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_name'] = $user['first_name']; // Předpokládá, že v databázi je sloupec `first_name`
-        $_SESSION['user_email'] = $user['email'];
+        $_SESSION['user_name'] = $user['first_name'];
+        $_SESSION['user_role'] = $user['role']; // Uložení role uživatele
 
-        // Přesměrování na hlavní stránku po úspěšném přihlášení
         header('Location: /mprojekt/public/');
         exit();
     } catch (PDOException $e) {
-        // Zpracování chyby při připojení k databázi nebo dotazu
-        die('Chyba při přihlášení: ' . $e->getMessage());
+        $_SESSION['message'] = 'Chyba při přihlášení: ' . $e->getMessage();
+        header('Location: /mprojekt/public/auth/login');
+        exit();
     }
-} else {
-    // Pokud metoda není POST, přesměruj zpět na přihlašovací formulář
-    header('Location: /mprojekt/public/auth/login');
-    exit();
 }

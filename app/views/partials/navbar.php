@@ -34,6 +34,11 @@ $cartItemCount = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                     <a href="/mprojekt/public/products?category=Příslušenství">Příslušenství</a>
                 </div>
             </li>
+
+            <!-- Odkaz na admin panel (viditelný pouze pro admina) -->
+            <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
+                <li><a href="/mprojekt/public/admin">Admin Panel</a></li>
+            <?php endif; ?>
             
             <!-- Shopping Cart -->
             <li class="cart-icon">

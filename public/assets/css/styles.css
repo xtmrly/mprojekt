@@ -23,6 +23,13 @@ footer {
 h1 {
     font-size: 2rem;
     color: #333;
+    text-align: center;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
 }
 
 .main-nav {
@@ -1051,4 +1058,146 @@ input:focus, select:focus {
 
 .btn-sm:hover {
     background-color: #2980b9;
+}
+
+
+
+
+
+/* ADMIN PANEL – Správa produktů */
+.adminpanel .container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Nadpisy */
+.adminpanel h1, h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* FORMULÁŘ PRO PŘIDÁNÍ PRODUKTU */
+.adminpanel form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.adminpanel label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.adminpanel input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.adminpanel textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.adminpanel button {
+    background: #3498db;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.adminpanel button:hover {
+    background: #2980b9;
+}
+
+/* TABULKA PRODUKTŮ */
+.adminpanel .admin-products {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.adminpanel .admin-products th, 
+.adminpanel .admin-products td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.adminpanel .admin-products th {
+    background: #007bff;
+    color: white;
+}
+
+.adminpanel .admin-products tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.adminpanel .admin-products tr:hover {
+    background: #f1f1f1;
+}
+
+/* OBRÁZKY PRODUKTŮ V TABULCE */
+.adminpanel .admin-products img {
+    width: 50px;
+    height: auto;
+    border-radius: 4px;
+}
+
+/* TLAČÍTKA AKCÍ (UPRAVIT & SMAZAT) */
+.adminpanel .btn {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+}
+
+.adminpanel .btn-warning {
+    background: #3498db;
+    color: white;
+}
+
+.adminpanel .btn-warning:hover {
+    background: #007bff;
+}
+
+.adminpanel .btn-danger {
+    background: #3498db;
+    color: white;
+}
+
+.adminpanel .btn-danger:hover {
+    background: #007bff;
+}
+
+/* RESPONSIVITA */
+@media (max-width: 768px) {
+    .adminpanel .admin-products th, 
+    .adminpanel .admin-products td {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .adminpanel button {
+        padding: 8px;
+    }
+
+    .adminpanel .btn {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
 }

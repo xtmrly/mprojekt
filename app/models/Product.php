@@ -55,4 +55,20 @@ class Product {
             return [];
         }
     }
+
+    public static function createProduct($name, $description, $price, $category, $image) {
+        global $pdo;
+        try {
+            $stmt = $pdo->prepare("INSERT INTO products (name, description, price, category, image) VALUES (:name, :description, :price, :category, :image)");
+            $stmt->execute([
+                ':name' => $name,
+                ':description' => $description,
+                ':price' => $price,
+                ':category' => $category,
+                ':image' => $image
+            ]);
+        } catch (PDOException $e) {
+            error_log("Chyba při vkládání produktu: " . $e->getMessage());
+        }
+    }    
 }
