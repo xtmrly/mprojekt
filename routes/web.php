@@ -92,6 +92,51 @@ switch ($requestUri) {
         $controller->orderDetail();
         break;
 
+<<<<<<< Updated upstream
+=======
+
+    // admin routes
+    case '/mprojekt/public/admin':
+        $controller = new AdminController();
+        $controller->index();
+        break;
+        
+    case '/mprojekt/public/admin/create':
+        $controller = new AdminController();
+        $controller->createProduct();
+        break;
+            
+    case '/mprojekt/public/admin/edit':
+        $controller = new AdminController();
+        $controller->edit();
+        break;
+    
+    case '/mprojekt/public/admin/update':
+        $controller = new AdminController();
+        $controller->update();
+        break;
+    
+    case '/mprojekt/public/admin/delete':
+        $controller = new AdminController();
+        $controller->delete();
+        break;
+        
+    case '/mprojekt/public/admin/user/create':
+        $controller = new AdminController();
+        $controller->createUser();
+        break;
+
+    case '/mprojekt/public/admin/user/update':
+        $controller = new AdminController();
+        $controller->updateUser();
+        break;
+
+    case '/mprojekt/public/admin/user/delete':
+        $controller = new AdminController();
+        $controller->deleteUser();
+        break;
+
+>>>>>>> Stashed changes
     // Ostatní routy...
 
     default:
